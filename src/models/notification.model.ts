@@ -36,12 +36,6 @@ NotificationSchema.index({ createAt: 1 }, { expireAfterSeconds: 86400 * 14 });
 const NotiModel = model(DOCUMENT_NAME, NotificationSchema);
 
 class NotiClass {
-  static async getNotifyUnRead(receiver: string) {
-    return await NotiModel.find({ receiver, is_read: false })
-      .populate('sender', pp_UserDefault)
-      .populate('receiver', pp_UserDefault)
-      .lean();
-  }
   static async getNotiByID(notiID: string) {
     return await NotiModel.findById(notiID)
       .populate('sender', pp_UserDefault)

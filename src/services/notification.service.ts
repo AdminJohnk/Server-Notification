@@ -24,21 +24,11 @@ export default class NotificationService {
             `A user with ID:${userID} has connected to notification service`
           );
           socket.join(userID);
-          this.sendNotificationToUserJustOnline(userID);
         });
       });
     } catch (error: any) {
       console.log(error);
       throw new Error(error);
-    }
-  }
-
-  async sendNotificationToUserJustOnline(userID: string) {
-    const unreadNotifications = await NotiClass.getNotifyUnRead(userID);
-    if (unreadNotifications.length > 0) {
-      NotificationService.io
-        .to(userID)
-        .emit(SOCKET_EVENTS.NOTI_ARR, unreadNotifications);
     }
   }
 

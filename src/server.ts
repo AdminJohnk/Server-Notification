@@ -12,7 +12,14 @@ const app = express();
 const server = http.createServer(app);
 
 export const io = new Server(server, {
-  cors: { origin: '*' },
+  cors: {
+    origin: [
+      process.env.CLIENT_URL_LOCAL,
+      process.env.ADMIN_URL_LOCAL,
+      process.env.CLIENT_URL,
+      process.env.ADMIN_URL
+    ]
+  },
   pingTimeout: 60000
 });
 
